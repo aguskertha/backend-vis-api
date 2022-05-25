@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  app:
+    container_name: backend-vis-api
+    build: .
+    links:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5000:5000"
+    environment:
+      - db_service_name=mongodb
+      - db_port=27017
+      - db_name=visDB
+  mongodb:
+    image: mongo:4.4 # use the latest image.
+    container_name: mongodb
+    restart: always
+    environment: # set required env variables to access mongo
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes: # optional to preserve database after container is deleted.
+      - ./db/data:/data/db
+  
+  # Mongo Express Service
+  mongo-express:
+    image: mongo-express:latest # latest image
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_SERVER: mongodb 
+networks:
+  default:
+    name: mongodb_network
+
+      
