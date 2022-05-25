@@ -14,5 +14,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const router =  require('./src/routes/routes');
 app.use('/api/v1', router);
+app.use('/', async (req, res, next) => {
+    res.send('Hello')
+})
 
 module.exports = app;
