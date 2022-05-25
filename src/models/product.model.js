@@ -18,6 +18,10 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    imagePath: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: String
     },
