@@ -10,7 +10,7 @@ const getProducts = async (req, res, next) => {
         res.json(products)
     }
     catch(error){
-        res.status(400).json({message: error})
+        res.status(400).json({message: error.toString()})
     }
 }
 
@@ -38,7 +38,7 @@ const createProduct = async (req, res, next) => {
         res.json(newProduct)
     }
     catch(error){
-        res.status(400).json({message: error})
+        res.status(400).json({message: error.toString()})
     }
 }
 
@@ -61,7 +61,7 @@ const deleteProducts = async (req, res, next) => {
         await Product.deleteMany()
         res.json({message: 'Products deleted successfully!'})
     } catch (error) {
-        res.status(400).json({message: error})
+        res.status(400).json({message: error.toString()})
     }
 }
 
