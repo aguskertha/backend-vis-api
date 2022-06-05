@@ -1,12 +1,15 @@
 const router = require('express').Router();
-const {getProducts, createProduct, deleteProducts, deleteProductByID, getProductByID} = require('./../controllers/product.controller')
+const {getProducts, createProduct, deleteProducts, deleteProductByID, getProductByID, postDummy, getNearestProducts, createQuery} = require('./../controllers/product.controller')
 const {singleUploadFile, multiUploadFile} = require('../middleware/upload-image');
 
 router.get('/', getProducts);
+router.get('/nearest', getNearestProducts);
 router.get('/:productID', getProductByID);
 router.post('/', singleUploadFile, createProduct);
+router.post('/query', singleUploadFile, createQuery);
 router.delete('/', deleteProducts);
 router.delete('/:productID', deleteProductByID);
+router.post('/dummy', singleUploadFile, postDummy);
 
 module.exports = router;
 
@@ -28,6 +31,7 @@ module.exports = router;
  *              - price
  *              - size
  *              - image  
+ *              - embedding
  *          properties:
  *              name:
  *                  type: string
@@ -39,6 +43,9 @@ module.exports = router;
  *                  type: string
  *              image:
  *                  type: file
+ *              embedding:
+ *                  type: Vector
+ * 
  */
 
 /**
@@ -65,6 +72,8 @@ module.exports = router;
  *                          image:
  *                              type: string
  *                              format: binary
+ *                          embedding:
+ *                              type: object
  *      responses:
  *          200:
  *              description: Successfully!

@@ -22,6 +22,11 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    embedding: {
+        type: mongoose.Schema.Types.Mixed,
+        trim: true,
+        required: true
+    },
     createdAt: {
         type: String
     },
